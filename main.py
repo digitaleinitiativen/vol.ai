@@ -68,7 +68,7 @@ def main():
     feed_url = 'https://www.vol.at/news/vorarlberg/feed?rss'
     source = "vol.at"
 
-    if 0:
+    if 1:
         feed_url = 'https://rss.orf.at/vorarlberg.xml'
         source = 'vorarlberg.orf.at'
 
@@ -89,6 +89,10 @@ def main():
         # Generate a unique hash for each headline
         headline_hash = hashlib.sha256(headline.encode()).hexdigest()
 
+        if headline_hash in ['bb5b8b1d811b5d854ac8da42ffee5f4549b6cfd3f93282b0bee1b69d31e78111']:
+            print(f'{headline_hash}: "{headline}" skipped')
+            continue
+
         # Check if the headline has already been processed
         if headline_hash not in processed_headlines:
             answer = text_prompt(f'''Du bist der Autor eines Comics.
@@ -102,7 +106,7 @@ def main():
                                  Weitere Elemente die vorkommen können sind Kokosnüsse, Luftmatratzen, Steinböcke, Palmen usw. Das ist aber optional.
                                  Sämtliche Texte auf dem Cover sollen in deutsch gehalten sein.
                                  ''')
-            print(f'{headline}')
+            print(f'{headline_hash}: {headline}')
             print(f'{description}')
             print(f'{answer}')
 
@@ -131,7 +135,7 @@ def main():
             image_count += 1
             save_processed_headlines(processed_headlines)
         else:
-            print(f'Headline "{headline}" already processed.')
+            print(f'{headline_hash}: Headline "{headline}" already processed.')
         save_processed_headlines(processed_headlines)
 
 if __name__ == '__main__':

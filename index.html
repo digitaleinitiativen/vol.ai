@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Loader</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .item {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .title {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .description {
+            margin-top: 5px;
+        }
+        .img {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>JSON Daten</h1>
+    <div id="content"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('processed_headlines.json')
+                .then(response => response.json())
+                .then(data => {
+                    const contentDiv = document.getElementById('content');
+                    for (const hash in data) {
+                        if (data.hasOwnProperty(hash)) {
+                            const item = data[hash];
+                            const itemDiv = document.createElement('div');
+                            itemDiv.className = 'item';
+                            
+                            const title = document.createElement('div');
+                            title.className = 'title';
+                            title.textContent = item.title;
+                            
+                            const description = document.createElement('div');
+                            description.className = 'description';
+                            description.textContent = item.description;
+
+                            const img = document.createElement('img');
+                            img.className = 'img'
+                            img.src = 'generated_images/' + hash + '.png'
+                            
+                            itemDiv.appendChild(title);
+                            itemDiv.appendChild(description);
+                            itemDiv.append(img);
+                            contentDiv.appendChild(itemDiv);
+                        }
+                    }
+                })
+                .catch(error => console.error('Error loading JSON:', error));
+        });
+    </script>
+</body>
+</html>

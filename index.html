@@ -46,19 +46,24 @@
                             const title = document.createElement('div');
                             title.className = 'title';
                             title.textContent = item.title;
+
+                            const time = document.createElement('div');
+                            time.className = 'time';
+                            time.textContent = item.time;
                             
                             const description = document.createElement('div');
                             description.className = 'description';
-                            description.textContent = item.description;
+                            description.textContent = item.source + ': ' + item.description;
 
                             const img = document.createElement('img');
                             img.className = 'img'
                             img.src = 'generated_images/' + hash + '.png'
                             
                             itemDiv.appendChild(title);
+                            itemDiv.appendChild(time);
                             itemDiv.appendChild(description);
                             itemDiv.append(img);
-                            contentDiv.appendChild(itemDiv);
+                            contentDiv.insertBefore(itemDiv, contentDiv.firstChild);
                         }
                     }
                 })

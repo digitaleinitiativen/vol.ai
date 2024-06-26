@@ -66,6 +66,11 @@ def main():
 
     # URL of the vol.at RSS feed
     feed_url = 'https://www.vol.at/news/vorarlberg/feed?rss'
+    source = "vol.at"
+
+    if 1:
+        feed_url = 'https://rss.orf.at/vorarlberg.xml'
+        source = 'vorarlberg.orf.at'
 
     # Parse the RSS feed
     feed = feedparser.parse(feed_url)
@@ -115,14 +120,19 @@ def main():
 
             # Add the hash to the list of processed headlines
             processed_headlines[headline_hash] = {
-                "headline": headline,
+                "title": headline,
                 "description": description,
-                "prompt": answer
+                "prompt": answer,
+                "source": source,
+                "link": entry.link,
+                "time": entry.published
+
             }
             image_count += 1
             save_processed_headlines(processed_headlines)
         else:
             print(f'Headline "{headline}" already processed.')
+        save_processed_headlines(processed_headlines)
 
 if __name__ == '__main__':
     main()

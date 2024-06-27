@@ -19,7 +19,7 @@
         }
         .kiosk .item {
             opacity: 0;
-            transition: opacity 1s ease-in-out;
+            transition: opacity 0.2s ease-in-out;
         }
         .title {
             font-weight: bold;
@@ -213,7 +213,7 @@
                             newItem.style.opacity = 1;
                             newItem.classList.add('visible');
                         }, 20); // Small delay to ensure display is set to block before opacity transition
-                    }, 1000); // Wait for fade-out transition
+                    }, 200); // Wait for fade-out transition
                 } else {
                     const randomIndex = Math.floor(Math.random() * items.length);
                     const newItem = items[randomIndex];

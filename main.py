@@ -68,7 +68,7 @@ def main():
     feed_url = 'https://www.vol.at/news/vorarlberg/feed?rss'
     source = "vol.at"
 
-    if 0:
+    if 1:
         feed_url = 'https://rss.orf.at/vorarlberg.xml'
         source = 'vorarlberg.orf.at'
 
